@@ -1,6 +1,39 @@
+import java.util.ArrayList;
+
 class Solution {
+
+    private boolean detectCycle(ArrayList<ArrayList<Integer>> adj, int node, boolean[] vis, boolean[] pathVisited){
+        vis[node] = true;
+        pathVisited[node] = true;
+
+        for (Integer adjEle : adj.get(node)) {
+            if(!vis[adjEle]){
+                if(detectCycle(adj, adjEle, vis, pathVisited)) return true;
+            }
+            else if(pathVisited[adjEle]) return true;
+            
+        }
+        pathVisited[node] = false;
+        return false;
+    }
+
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        int vis[] = 
+        boolean vis[] = new boolean[numCourses];
+        boolean pathVisited[] = new boolean[numCourses]; 
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+
+        for (int i = 0; i < numCourses; i++) {
+            adj.add(new ArrayList<>());
+        }
+        
+        for (int i = 0; i < prerequisites.length; i++) {
+            adj.get(prerequisites[i][0]).add(prerequisites[i][1]);
+        }
+
+        for (int i = 0; i < vis.length; i++) {
+            if(!vis[i] && detectCycle(adj, i, vis, pathVisited)) return false;
+        }
+        return true;
     }
 }
 
