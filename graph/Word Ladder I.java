@@ -1,48 +1,46 @@
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
 class Pair{
     String word;
-    int dis;
-    Pair(int dis, String word)
-    {
-        this.dis = dis;
+    int steps;
+    Pair(String word, int steps){
         this.word = word;
+        this.steps = steps;
     }
 }
-
-class Solution
-{
-    public int wordLadderLength(String startWord, String targetWord, String[] wordList){
-        Set<String> setOfWordList = new HashSet<>();
-        Queue<Pair> q = new LinkedList<>();
-
-        for (int i = 0; i < wordList.length; i++) {
-            setOfWordList.add(wordList[i]);
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Set<String> st = new HashSet<>();
+        //O(n)
+        for (String word : wordList) {
+            st.add(word);
         }
 
-
-        q.add(new Pair(1, startWord));
-        setOfWordList.remove(startWord);
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(beginWord, 1));
+        st.remove(beginWord);
+        //O(listlength * wordlength * 26)
         while(!q.isEmpty()){
             String word = q.peek().word;
-            int currDis = q.peek().dis;
+            int steps = q.peek().steps;
             q.remove();
 
-            if(word.equals(targetWord)) return currDis;
+            if(word.equals(endWord)) return steps;
+
             for (int i = 0; i < word.length(); i++) {
                 for (char ch = 'a'; ch <= 'z'; ch++) {
-                    char arrOfWordString[] = word.toCharArray();
-                    arrOfWordString[i] = ch;
-                    String replacedString = new String(arrOfWordString);
-                    if(setOfWordList.contains(replacedString)){
-                        setOfWordList.remove(replacedString);
-                        q.add(new Pair(currDis + 1, replacedString));
+                    char replaceWordArray[] = word.toCharArray();
+                    replaceWordArray[i] = ch;
+                    String temp = new String(replaceWordArray);
+                    if(st.contains(temp)){
+                        st.remove(temp);
+                        q.add(new Pair(temp, steps + 1));
                     }
                 }
-                
             }
         }
         return 0;
