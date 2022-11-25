@@ -5,38 +5,39 @@ class Solution
 
     static int numOfSubArraysWithMaxSum(int[] arr, int n, int mid){
         int count = 1;
-        int sum = 0;
-        for (int it : arr) {
-            sum += it;
-            if(sum >= mid){
+        int subArraySum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            subArraySum += arr[i];
+            if(subArraySum > mid){
+                subArraySum = arr[i];
                 count++;
-                sum = 0;
             }
         }
         return count;
     }
 
     //Function to find minimum number of pages.
-    public static int findPages(int[]A,int N,int M)
+    public static int findPages(int[]a,int N,int M)
     {
-        Arrays.sort(A);
-
-        int low = A[0];
-        int high = 0;
-        for (int i = M - 1; i < A.length; i++) {
-            high += A[i];
+        int low = 0, high = 0;
+        for (int i = 0; i < a.length; i++) {
+            low = Math.max(low, a[i]);
+            high += a[i]; 
         }
 
-        while(high <= low){
+        int result = 0;
+        while(low <= high){
             int mid = (low + high) >> 1;
 
-            if(numOfSubArraysWithMaxSum(A, N, mid) <= M){
-                high = mid - 1;
-            }
-            else{
+            int count = numOfSubArraysWithMaxSum(a, N, mid);
+            if(count > M){
                 low = mid + 1;
             }
+            else {
+                high = mid - 1;
+                result = mid;
+            }
         }
-        return high;
+        return result;
     }
 };
