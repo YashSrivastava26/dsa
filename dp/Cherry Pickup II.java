@@ -1,9 +1,4 @@
-
-
-// //User function Template for Java
-
-// class Solution{
-    
+// class Solution {
 //     private int memoization(int row, int c1, int c2, int grid[][], int m, int[][][] dp){
         
 //         if(c1 < 0 || c2 < 0 || c1 >= m || c2 >= m){
@@ -40,8 +35,10 @@
 //         }
 //         return dp[row][c1][c2] = maxi + grid[row][c1] + grid[row][c2];
 //     }
-    
-//     public int solve(int n, int m, int grid[][]){
+
+
+//     public int cherryPickup(int[][] grid) {
+//         int n = grid.length, m = grid[0].length;
 //         int [][][] dp = new int[n][m][m];
 //         for(int[][] two_D : dp){
 //             for(int[] one_D : two_D){
@@ -53,21 +50,18 @@
 //     }
 // }
 
+
 //tabulation
-
-
-//User function Template for Java
-
-// class Solution{
-    
+// class Solution {
 //     private boolean inRange(int c1, int c2, int m){
 //         if(c1 < 0 || c2 < 0 || c1 >= m || c2 >= m){
 //             return false;
 //         }
 //         return true;
 //     }
-    
-//     public int solve(int n, int m, int grid[][]){
+
+//     public int cherryPickup(int[][] grid) {
+//         int n = grid.length, m = grid[0].length;
 //         int [][][] dp = new int[n][m][m];
         
 //         for(int c1 = 0; c1 < m; c1++){
@@ -115,20 +109,16 @@
 // }
 
 //space optimization
-
-
-//User function Template for Java
-
-class Solution{
-    
+class Solution {
     private boolean inRange(int c1, int c2, int m){
         if(c1 < 0 || c2 < 0 || c1 >= m || c2 >= m){
             return false;
         }
         return true;
     }
-    
-    public int solve(int n, int m, int grid[][]){
+
+    public int cherryPickup(int[][] grid) {
+        int n = grid.length, m = grid[0].length;
         int [][] bottomRow = new int[m][m];
         
         for(int c1 = 0; c1 < m; c1++){
